@@ -1,19 +1,22 @@
 export default class Singleton {
-    private static instance?: Singleton;
+    private static instance: Singleton | null = null;
 
-    private someString: string = "";
+    private someString = "";
 
     private constructor() {}
 
     static getInstance(): Singleton {
-        return this.instance ??= new Singleton();
+        if (Singleton.instance == null) {
+            Singleton.instance = new Singleton();
+        }
+        return Singleton.instance;
     }
 
-    getSomeString(): string {
+    public getSomeString(): string {
         return this.someString;
     }
 
-    setSomeString(value: string): void {
+    public setSomeString(value: string): void {
         this.someString = value;
     }
 }
