@@ -10,6 +10,8 @@ import { Publisher, ConcreteSubscriberA, ConcreteSubscriberB } from "./observer.
 
 import { ConcreteComponent, ConcreteDecorator } from "./decorator.js";
 
+import { Director, CarBuilder, TruckBuilder } from "./builder.js";
+
 /**
  * Entry point for demonstrating various design patterns.
  */
@@ -18,6 +20,7 @@ function main(): void {
 
   runSingletonDemo();
   runFactoryMethodDemo();
+  runBuilderDemo();
   runStrategyDemo();
   runObserverDemo();
   runDecoratorDemo();
@@ -54,6 +57,34 @@ function runFactoryMethodDemo(): void {
     console.log(`Created product from ${creator.constructor.name}:`);
     product.doStuff();
   }
+
+  console.log();
+}
+
+/**
+ * Demonstrates the Builder design pattern.
+ */
+function runBuilderDemo(): void {
+  console.log("--- Builder Pattern ---");
+
+  // Use Director with a CarBuilder
+  const carBuilder = new CarBuilder();
+  const director = new Director(carBuilder);
+
+  console.log("Building a Car using Director and CarBuilder...");
+  director.make();
+  const car = carBuilder.getResult();
+  console.log("Car built:", car);
+
+  // Switch to a TruckBuilder
+  console.log("\nSwitching Director to TruckBuilder...");
+  const truckBuilder = new TruckBuilder();
+  director.changeBuilder(truckBuilder);
+
+  console.log("Building a Truck using Director and TruckBuilder...");
+  director.make();
+  const truck = truckBuilder.getResult();
+  console.log("Truck built:", truck);
 
   console.log();
 }

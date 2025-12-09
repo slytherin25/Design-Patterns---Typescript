@@ -39,6 +39,31 @@ lets subclasses decide which class to instantiate.
 
 ------------------------------------------------------------------------
 
+## Builder Pattern
+
+The Builder pattern separates the construction of a complex object from
+its representation, allowing the same construction process to create
+different types of objects.
+
+### When to Use
+
+-   When an object requires multiple steps to build.
+-   When you want different representations (e.g., Car vs. Truck) built
+    using the same step sequence.
+-   When telescoping constructors or overly large constructor parameter
+    lists become unwieldy.
+
+### Key Characteristics
+
+-   Builder interface defines construction steps.
+-   Concrete builders (e.g., `CarBuilder`, `TruckBuilder`) implement
+    those steps.
+-   Director orchestrates the building process in a consistent order.
+-   Builders expose `getResult()` to retrieve the final constructed
+    product.
+
+------------------------------------------------------------------------
+
 ## Strategy Pattern
 
 The Strategy pattern defines a family of algorithms, encapsulates each
