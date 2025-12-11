@@ -2,15 +2,12 @@
 import Singleton from "./singleton.js";
 import type { Creator } from "./factory_method.js";
 import { ConcreteCreatorA, ConcreteCreatorB } from "./factory_method.js";
-
 import type { Strategy } from "./strategy.js";
 import { ConcreteStrategyA, ConcreteStrategyB, Context } from "./strategy.js";
-
 import { Publisher, ConcreteSubscriberA, ConcreteSubscriberB } from "./observer.js";
-
 import { ConcreteComponent, ConcreteDecorator } from "./decorator.js";
-
 import { Director, CarBuilder, TruckBuilder } from "./builder.js";
+import { Truck, FancyTruck } from "./prototype.js";
 
 /**
  * Entry point for demonstrating various design patterns.
@@ -24,6 +21,7 @@ function main(): void {
   runStrategyDemo();
   runObserverDemo();
   runDecoratorDemo();
+  runPrototypeDemo();
 
   console.log("\nAll demonstrations complete.\n");
 }
@@ -154,6 +152,60 @@ function runDecoratorDemo(): void {
 
   console.log("\nExecuting decorator-specific extra behavior:");
   decorated.extra();
+
+  console.log();
+}
+
+/**
+ * Demonstrates the Prototype design pattern.
+ *
+ * Shows how objects can be cloned without depending on their
+ * concrete construction details by using a shared Prototype interface.
+ */
+function runPrototypeDemo(): void {
+  console.log("--- Prototype Pattern ---");
+
+  console.log("Creating a base Truck prototype...");
+  const baseTruck = new Truck({
+    maker: "Acme Motors",
+    engine: "V8 diesel",
+    tires: 6,
+    capacityTons: 12,
+    vin: "ACME-TRK-001",
+  });
+
+  console.log("Base Truck:", baseTruck.describe());
+
+  console.log("\nCloning the Truck prototype...");
+  const clonedTruck = baseTruck.clone();
+
+  console.log("Cloned Truck:", clonedTruck.describe());
+  console.log(
+    "Are Truck instances the same reference?",
+    baseTruck === clonedTruck
+  );
+
+  console.log("\nCreating a FancyTruck prototype...");
+  const fancyTruck = new FancyTruck({
+    maker: "Acme Motors",
+    engine: "V8 turbo diesel",
+    tires: 6,
+    capacityTons: 14,
+    vin: "ACME-FANCY-001",
+    hasOffRoadPackage: true,
+    lightBarLumens: 12000,
+  });
+
+  console.log("FancyTruck:", fancyTruck.describe());
+
+  console.log("\nCloning the FancyTruck prototype...");
+  const clonedFancyTruck = fancyTruck.clone();
+
+  console.log("Cloned FancyTruck:", clonedFancyTruck.describe());
+  console.log(
+    "Are FancyTruck instances the same reference?",
+    fancyTruck === clonedFancyTruck
+  );
 
   console.log();
 }

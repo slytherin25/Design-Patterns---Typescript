@@ -105,6 +105,12 @@ export class TruckBuilder implements Builder {
      * Returns the completed Truck product.
      */
     getResult(): Truck {
+        if (this.truck.engine == null ||
+            this.truck.tire == null ||
+            this.truck.maker == null)
+        {
+            throw new Error("Truck is missing required components.");
+        }
         return this.truck;
     }
 }
